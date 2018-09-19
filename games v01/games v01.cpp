@@ -3,7 +3,6 @@
 #include <iostream>
 #include <time.h>
 #include <ctype.h>
-//#include <stdio.h>
 
 using namespace std;
 
