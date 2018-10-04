@@ -1,1 +1,1 @@
-Program made to create an virtual deck of cards using arrays
+Program made to create a virtual deck of cards using arrays
