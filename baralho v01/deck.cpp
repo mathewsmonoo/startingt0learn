@@ -22,12 +22,24 @@ void mostrarbaralho(CARTA *mostra);
 void associarnaipes(CARTA *pnaipe);
 void invertebaralho(CARTA *inverte);
 void embaralhabaralho(CARTA *embaralha);
-void deletarbaralho(CARTA *deleta);
+void deletarbaralho(CARTA *deleta, CARTA *deleta2);
+void tirarmao(CARTA *bar1,CARTA *mao1,int *ptamanhomao, CARTA *apagador1);
+void mostrarmao(CARTA *mao1,int *ptamanhomao);
 
 //main
 int main(void){
   CARTA *baralho1{nullptr};
   baralho1 = new CARTA[52];
+  CARTA *mao1{nullptr};
+  mao1 = new CARTA[52];
+  CARTA apagador;
+  CARTA *papagador = new CARTA[1];
+     strcpy(papagador->naipe,"\0");
+     strcpy(papagador->nome,"\0");
+     papagador->numero = 0;
+  int tamanhomao;
+  int *ptamanhomao{nullptr};
+  ptamanhomao = &tamanhomao;
   int escolha;
 criarbaralho(baralho1);
 menu:
@@ -38,18 +50,24 @@ menu:
   cout << "(2) - INVERTER BARALHO.........................:" << endl;
   cout << "(3) - EMBARALHAR...............................:" << endl;
   cout << "(4) - RESTAURAR BARALHO;.......................:" << endl;
-  cout << "(5) - DELETAR BARALHO E SAIR...................:" << endl;
+  cout << "(5) - TIRAR UMA MAO (n CARTAS).................:" << endl;
+  cout << "(6) - MOSTRAR SUA MAO..........................:" << endl;
+  cout << "(0) - DELETAR BARALHO E SAIR...................:" << endl;
   cout << "------------------------------------------------" << endl;
   if(!(cin >> escolha)){
     cout << "\n\nOPCAO DEVE SER UM NUMERO!    ENCERRANDO..." << endl;
     goto fimprograma;
   }
+  else
+    cin.ignore('80','\n');
   switch (escolha){
-    case 1:  mostrarbaralho(baralho1);   goto menu; break;
-    case 2:  invertebaralho(baralho1);   goto menu; break;
-    case 3:  embaralhabaralho(baralho1); goto menu; break;
-    case 4:  criarbaralho(baralho1);     goto menu; break;
-    case 5:  deletarbaralho(baralho1);   goto fimprograma; break;
+    case 1:  mostrarbaralho(baralho1);             goto menu; break;
+    case 2:  invertebaralho(baralho1);             goto menu; break;
+    case 3:  embaralhabaralho(baralho1);           goto menu; break;
+    case 4:  criarbaralho(baralho1);               goto menu; break;
+    case 5:  tirarmao(baralho1,mao1,ptamanhomao,papagador);  goto menu; break;
+    case 6:  mostrarmao(mao1,ptamanhomao);         goto menu; break;
+    case 0:  deletarbaralho(baralho1,mao1);             goto fimprograma; break;
     default: cout << "\n\tOPCAO INVALIDA...." << endl; goto menu; break;
   }
 
@@ -116,8 +134,6 @@ void mostrarbaralho(CARTA *mostra){
     for (int i = 0; i <= 52-1; i++){
         cout << " CARTA " << setw(3) << i+1 << ":" << setw(9) << mostra[i].nome;
         cout << " \tNAIPE :\t  " << setw(7) << mostra[i].naipe << endl;
-/*consertar if(i==3 || i == 7 || i == 11|| i == 15 || i == 19 || i == 23 || i == 27|| i == 31 || i == 35|| i == 39|| i == 43 || i == 47|| i == 51)
-                            cout << endl;*/
     }
 cout << "\n\n<ENTER> para continuar...." << endl; cin.get();
 return;
@@ -166,15 +182,44 @@ switch(n){
     case 2 : strcpy(condicao,"EMBARALHADO");  break;
     case 3 : strcpy(condicao,"ORGANIZADO");   break;
     case 4 : strcpy(condicao,"DELETADO");     break;
+    case 5 : strcpy(condicao,"TIRADA");       break;
     default : strcpy(condicao,"VOCE_ERROU");  break;
     }
-for (int i = 0; i <= 28; i++)
-    cout << endl;
+if (n <= 4) {
+    for (int i = 0; i <= 28; i++)
+        cout << endl;
 cout << "\tBaralho " << condicao << " com sucesso!" << endl;
+ }
+else{
+    for (int i = 0; i <= 28; i++)
+        cout << endl;
+cout << "\tMAO" << condicao << " com sucesso!" << endl;
+}
 }
 
-void deletarbaralho(CARTA *deleta){
+void deletarbaralho(CARTA *deleta, CARTA *deleta2){
 delete[]deleta;
+delete[]deleta2;
 limpartela(4);
+return;
+}
+
+void tirarmao(CARTA *bar1,CARTA *mao1,int *ptamanhomao, CARTA *apagador1){
+    cout << "\nNumero de CARTAS  na  MAO....:" << endl;
+    cin >> *ptamanhomao; cin.ignore('80','\n');
+    for(int i = 0; i <= *ptamanhomao-1; i++){
+        mao1[i] = bar1[i];
+        bar1[i] = apagador1[i];
+    }
+limpartela(5);
+return;
+}
+
+void mostrarmao(CARTA *mao1,int *ptamanhomao){
+    for (int i = 0; i <= *ptamanhomao-1; i++){
+        cout << " CARTA " << setw(3) << i+1 << ":" << setw(9) << mao1[i].nome;
+        cout << " \tNAIPE :\t  " << setw(7) << mao1[i].naipe << endl;
+    }
+cout << "\n\n<ENTER> para continuar...." << endl; cin.get();
 return;
 }
