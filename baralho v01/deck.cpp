@@ -37,6 +37,7 @@ int main(void){
      strcpy(papagador->naipe,"\0");
      strcpy(papagador->nome,"\0");
      papagador->numero = 0;
+
   int tamanhomao;
   int *ptamanhomao{nullptr};
   ptamanhomao = &tamanhomao;
@@ -87,10 +88,10 @@ void criarbaralho(CARTA *baralho){
     if (i <= 3){
         strcpy(phelper[i].nome,"AS");
         phelper[i].numero = 1;}
-        else if (i <= 7){
+    else if (i <= 7){
             strcpy(phelper[i].nome,"DOIS");
             phelper[i].numero = 2;}
-            else if (i <= 11){
+        else if (i <= 11){
                 strcpy(phelper[i].nome,"TRES");
                 phelper[i].numero = 3;}
                 else if (i <= 15){
@@ -140,16 +141,14 @@ return;
 }
 
 void associarnaipes(CARTA *pnaipe){
-int i = 0;
-    for (i = 0 ; i <= 51; i+=4)
+    int i = 0;
+    for (i = 0 ; i <= 51; i+=4){
         strcpy(pnaipe[i].naipe, "COPAS");
-    for (i = 1 ; i <= 51; i+=4)
-        strcpy(pnaipe[i].naipe, "ESPADAS");
-    for (i = 2 ; i <= 51; i+=4)
-        strcpy(pnaipe[i].naipe, "OUROS");
-    for (i = 3 ; i <= 51; i+=4)
-        strcpy(pnaipe[i].naipe, "PAUS");
-return;
+        strcpy(pnaipe[i+1].naipe, "ESPADAS");
+        strcpy(pnaipe[i+2].naipe, "OUROS");
+        strcpy(pnaipe[i+3].naipe, "PAUS");
+    }
+    return;
 }
 
 void invertebaralho(CARTA *inverte){
@@ -198,9 +197,9 @@ cout << "\tMAO" << condicao << " com sucesso!" << endl;
 }
 
 void deletarbaralho(CARTA *deleta, CARTA *deleta2){
-delete[]deleta;
-delete[]deleta2;
-limpartela(4);
+    delete[]deleta;
+    delete[]deleta2;
+    limpartela(4);
 return;
 }
 
@@ -211,8 +210,8 @@ void tirarmao(CARTA *bar1,CARTA *mao1,int *ptamanhomao, CARTA *apagador1){
         mao1[i] = bar1[i];
         bar1[i] = apagador1[i];
     }
-limpartela(5);
-return;
+    limpartela(5);
+    return;
 }
 
 void mostrarmao(CARTA *mao1,int *ptamanhomao){
@@ -220,6 +219,6 @@ void mostrarmao(CARTA *mao1,int *ptamanhomao){
         cout << " CARTA " << setw(3) << i+1 << ":" << setw(9) << mao1[i].nome;
         cout << " \tNAIPE :\t  " << setw(7) << mao1[i].naipe << endl;
     }
-cout << "\n\n<ENTER> para continuar...." << endl; cin.get();
-return;
+    cout << "\n\n<ENTER> para continuar...." << endl; cin.get();
+    return;
 }
