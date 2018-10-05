@@ -1,10 +1,7 @@
-
 //Aprendendo manipulacao de dia/semana/mes/ano
-
 #include <iostream>
 #include <vector>
 #include <cstring>
-
 using namespace std;
 
 struct DIA{
@@ -15,7 +12,6 @@ struct DIA{
   int   d_ano;
   bool  d_bissexto;
 };
-
 const char *NOMEMES[13]={"JAN","FEV","MAR","MAI","ABR","JUN","JUL","AGO","SET",
                          "OUT","NOV","DEZ"};
 const char *NOMEDIA[8]={"SEGUNDA-FEIRA","TERCA-FEIRA","QUARTA-FEIRA",
@@ -33,8 +29,9 @@ int main(void){
   DIA *p1 = new DIA;
   inserirdata(p1);
   mostradata(p1);
-
-  return 0;
+  
+cin.get();
+return 0;
 }
 
 void inserirdata(DIA *ip1){
